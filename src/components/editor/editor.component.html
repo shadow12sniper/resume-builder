@@ -1,0 +1,113 @@
+
+<div class="space-y-12">
+  <!-- Profile Section -->
+  <section class="border-b border-gray-200 pb-8">
+    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Profile</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-600 mb-1">Full Name</label>
+        <input [value]="resume().profile.name" (input)="updateProfile('name', $event)" type="text" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-600 mb-1">Job Title</label>
+        <input [value]="resume().profile.title" (input)="updateProfile('title', $event)" type="text" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-600 mb-1">Email</label>
+        <input [value]="resume().profile.email" (input)="updateProfile('email', $event)" type="email" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-600 mb-1">Phone</label>
+        <input [value]="resume().profile.phone" (input)="updateProfile('phone', $event)" type="tel" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+      </div>
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium text-gray-600 mb-1">Website</label>
+        <input [value]="resume().profile.website" (input)="updateProfile('website', $event)" type="url" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+      </div>
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium text-gray-600 mb-1">Summary</label>
+        <textarea [value]="resume().profile.summary" (input)="updateProfile('summary', $event)" rows="4" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="border-b border-gray-200 pb-8">
+    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Work Experience</h2>
+    @for (experience of resume().experience; track $index; let i = $index) {
+      <div class="mb-6 p-4 border border-gray-200 rounded-lg bg-gray-50/50 relative">
+         <button (click)="resumeService.removeExperience(i)" class="absolute top-2 right-2 text-red-500 hover:text-red-700 font-bold">&times;</button>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Company</label>
+            <input [value]="experience.company" (input)="updateExperience(i, 'company', $event)" type="text" class="w-full p-2 border border-gray-300 rounded-md">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Job Title</label>
+            <input [value]="experience.title" (input)="updateExperience(i, 'title', $event)" type="text" class="w-full p-2 border border-gray-300 rounded-md">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Start Date</label>
+            <input [value]="experience.startDate" (input)="updateExperience(i, 'startDate', $event)" type="date" class="w-full p-2 border border-gray-300 rounded-md">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">End Date</label>
+            <input [value]="experience.endDate" (input)="updateExperience(i, 'endDate', $event)" type="text" placeholder="Present or YYYY-MM-DD" class="w-full p-2 border border-gray-300 rounded-md">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-600 mb-1">Description</label>
+            <textarea [value]="experience.description" (input)="updateExperience(i, 'description', $event)" rows="4" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+          </div>
+        </div>
+      </div>
+    }
+    <button (click)="resumeService.addExperience()" class="mt-2 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Add Experience</button>
+  </section>
+
+  <!-- Education Section -->
+  <section class="border-b border-gray-200 pb-8">
+    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Education</h2>
+    @for (edu of resume().education; track $index; let i = $index) {
+      <div class="mb-6 p-4 border border-gray-200 rounded-lg bg-gray-50/50 relative">
+         <button (click)="resumeService.removeEducation(i)" class="absolute top-2 right-2 text-red-500 hover:text-red-700 font-bold">&times;</button>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Institution</label>
+            <input [value]="edu.institution" (input)="updateEducation(i, 'institution', $event)" type="text" class="w-full p-2 border border-gray-300 rounded-md">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Degree</label>
+            <input [value]="edu.degree" (input)="updateEducation(i, 'degree', $event)" type="text" class="w-full p-2 border border-gray-300 rounded-md">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Start Date</label>
+            <input [value]="edu.startDate" (input)="updateEducation(i, 'startDate', $event)" type="date" class="w-full p-2 border border-gray-300 rounded-md">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">End Date</label>
+            <input [value]="edu.endDate" (input)="updateEducation(i, 'endDate', $event)" type="date" class="w-full p-2 border border-gray-300 rounded-md">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-600 mb-1">Description</label>
+            <textarea [value]="edu.description" (input)="updateEducation(i, 'description', $event)" rows="2" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+          </div>
+        </div>
+      </div>
+    }
+    <button (click)="resumeService.addEducation()" class="mt-2 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Add Education</button>
+  </section>
+
+  <!-- Skills Section -->
+  <section>
+    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Skills</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+    @for (skill of resume().skills; track $index; let i = $index) {
+      <div class="relative">
+        <input [value]="skill.name" (input)="updateSkill(i, $event)" type="text" class="w-full p-2 border border-gray-300 rounded-md pr-8">
+        <button (click)="resumeService.removeSkill(i)" class="absolute top-1/2 right-2 -translate-y-1/2 text-red-500 hover:text-red-700 font-bold">&times;</button>
+      </div>
+    }
+    </div>
+    <button (click)="resumeService.addSkill()" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Add Skill</button>
+  </section>
+</div>

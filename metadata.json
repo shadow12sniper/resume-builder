@@ -1,0 +1,5 @@
+{
+  "name": "AI Resume Builder",
+  "description": "A modern, real-time resume builder application that helps you create, preview, and download professional resumes as PDFs.",
+  "requestFramePermissions": []
+}
